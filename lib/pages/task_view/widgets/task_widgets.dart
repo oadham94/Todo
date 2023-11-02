@@ -7,11 +7,16 @@ import 'package:todo/pages/task_view/widgets/edit_task_screen.dart';
 
 import '../../../core/provider/app_provider.dart';
 
-class TaskWidgets extends StatelessWidget {
+class TaskWidgets extends StatefulWidget {
   final TaskModel task;
 
   const TaskWidgets({super.key, required this.task});
 
+  @override
+  State<TaskWidgets> createState() => _TaskWidgetsState();
+}
+
+class _TaskWidgetsState extends State<TaskWidgets> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -34,7 +39,7 @@ class TaskWidgets extends StatelessWidget {
                 borderRadius:
                     const BorderRadius.horizontal(left: Radius.circular(15)),
                 onPressed: (context) {
-                  FireStoreUtilities.deleteData(task);
+                  FireStoreUtilities.deleteData(widget.task);
                 },
                 backgroundColor: const Color(0xffEC4B4B),
                 icon: Icons.delete_rounded,
@@ -52,7 +57,7 @@ class TaskWidgets extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 onPressed: (context) {
                   Navigator.of(context)
-                      .pushNamed(EditTask.routeName, arguments: task);
+                      .pushNamed(EditTask.routeName, arguments: widget.task);
                 },
                 backgroundColor: const Color(0xff195cb7),
                 foregroundColor: Colors.white,
@@ -75,7 +80,7 @@ class TaskWidgets extends StatelessWidget {
                 Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: task.isDone
+                      color: widget.task.isDone
                           ? const Color(0xff61E757)
                           : theme.primaryColor,
                     ),
@@ -87,14 +92,14 @@ class TaskWidgets extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      task.title,
-                      style: task.isDone
+                      widget.task.title,
+                      style: widget.task.isDone
                           ? theme.textTheme.bodyLarge!
                               .copyWith(color: const Color(0xff61E757))
                           : theme.textTheme.bodyLarge,
                     ),
                     Text(
-                      task.description,
+                      widget.task.description,
                       style: theme.textTheme.bodyMedium,
                     ),
                     Row(
@@ -102,7 +107,7 @@ class TaskWidgets extends StatelessWidget {
                          Icon(Icons.alarm_rounded,color: (appProvider.curTheme==ThemeMode.light)?Colors.black:Colors.white),
                         const SizedBox(width: 10),
                         Text(
-                            "${task.timeOfDay.hour.toString()}:${task.timeOfDay.minute.toString()}"),
+                            "${widget.task.timeOfDay.hour.toString()}:${widget.task.timeOfDay.minute.toString()}"),
                         const SizedBox(width: 105),
                       ],
                     )
@@ -110,11 +115,12 @@ class TaskWidgets extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    task.isDone = !task.isDone;
-                    FireStoreUtilities.clickOnDone(task);
+                    widget.task.isDone = !widget.task.isDone;
+                    FireStoreUtilities.clickOnDone(widget.task);
+                    setState(() {});
                   },
                   child: Container(
-                    decoration: task.isDone
+                    decoration: widget.task.isDone
                         ? const BoxDecoration()
                         : BoxDecoration(
                             color: theme.primaryColor,
@@ -122,7 +128,7 @@ class TaskWidgets extends StatelessWidget {
                             shape: BoxShape.rectangle),
                     width: 70,
                     height: 35,
-                    child: task.isDone
+                    child: widget.task.isDone
                         ? Text("Done!",
                             style: theme.textTheme.bodyLarge!
                                 .copyWith(color: const Color(0xff61E757)))

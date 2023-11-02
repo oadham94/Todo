@@ -43,22 +43,21 @@ class _EditTaskState extends State<EditTask> {
           height: 187,
           color: theme.primaryColor,
         ),
-        Container(
-          height: MediaQuery.of(context).size.height * 0.8,
+        Container(margin: const EdgeInsets.only(top: 50),
+          height: MediaQuery.of(context).size.height * 0.65,
           width: MediaQuery.of(context).size.width * 0.9,
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(20)),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Form(
               key: formKey,
-              child: Column(children: [
+              child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
                 Text(
                   "edit task",
                   style:
                       theme.textTheme.titleLarge!.copyWith(color: Colors.black),
                 ),
-                const SizedBox(height: 20),
                 TextForm(
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
@@ -69,9 +68,6 @@ class _EditTaskState extends State<EditTask> {
                     },
                     hint: "Task title",
                     textController: title),
-                const SizedBox(
-                  height: 20,
-                ),
                 TextForm(
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
@@ -83,9 +79,6 @@ class _EditTaskState extends State<EditTask> {
                     maxLines: 3,
                     hint: "Task description",
                     textController: description),
-                const SizedBox(
-                  height: 20,
-                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -106,9 +99,6 @@ class _EditTaskState extends State<EditTask> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -128,9 +118,6 @@ class _EditTaskState extends State<EditTask> {
                       ),
                     ),
                   ],
-                ),
-                const SizedBox(
-                  height: 20,
                 ),
                 ElevatedButton(
                     onPressed: () {

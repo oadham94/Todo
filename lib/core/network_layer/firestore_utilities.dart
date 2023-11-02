@@ -29,7 +29,6 @@ class FireStoreUtilities {
     var docRef = getCollection().doc(task.id);
     return await docRef.delete();
   }
-
   static Stream<QuerySnapshot<TaskModel>> getDataRealTime(DateTime time) {
     var snapshotsRef = getCollection()
         .where('dateTime',
@@ -39,8 +38,9 @@ class FireStoreUtilities {
   }
 
   static Future<void> clickOnDone(TaskModel task) async {
+    var uid = FirebaseAuth.instance.currentUser!.uid;
     await FirebaseFirestore.instance
-        .collection("task")
+        .collection("users").doc(uid).collection("task")
         .doc(task.id)
         .set(task.toFireStore());
   }
