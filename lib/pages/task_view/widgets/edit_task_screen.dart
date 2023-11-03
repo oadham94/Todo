@@ -129,9 +129,9 @@ class _EditTaskState extends State<EditTask> {
                             isDone: false,
                             dateTime: selectedDate,
                             timeOfDay: selectedDateTime);
-                        FireStoreUtilities.updateData(task);
-                        //FireStoreUtilities.deleteData(args);
-                        //FireStoreUtilities.addData(task);
+                        //FireStoreUtilities.updateData(task);
+                        FireStoreUtilities.deleteData(args);
+                        FireStoreUtilities.addData(task);
                         Navigator.of(context).pop();
                       }
                     },
