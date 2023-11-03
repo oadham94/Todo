@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:todo/core/network_layer/firestore_utilities.dart';
 import 'package:todo/model/task_model.dart';
 import 'package:todo/pages/task_view/widgets/edit_task_screen.dart';
-
 import '../../../core/provider/app_provider.dart';
 
 class TaskWidgets extends StatefulWidget {
@@ -26,7 +25,7 @@ class _TaskWidgetsState extends State<TaskWidgets> {
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Colors.white,
+        color: appProvider.curTheme==ThemeMode.dark? const Color(0xff060E1E):const Color(0xffDFECDB),
       ),
       child: Slidable(
         direction: Axis.horizontal,

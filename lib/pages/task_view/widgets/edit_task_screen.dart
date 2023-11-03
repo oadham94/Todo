@@ -123,13 +123,15 @@ class _EditTaskState extends State<EditTask> {
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         var task = TaskModel(
+                            id: args.id,
                             title: title.text,
                             description: description.text,
                             isDone: false,
                             dateTime: selectedDate,
                             timeOfDay: selectedDateTime);
-                        FireStoreUtilities.deleteData(args);
-                        FireStoreUtilities.addData(task);
+                        FireStoreUtilities.updateData(task);
+                        //FireStoreUtilities.deleteData(args);
+                        //FireStoreUtilities.addData(task);
                         Navigator.of(context).pop();
                       }
                     },
